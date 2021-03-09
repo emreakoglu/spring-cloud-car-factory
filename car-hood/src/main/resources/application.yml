@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: car-hood
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+logging:
+  level:
+    org.springframework: info
+server:
+  port: 8082
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - env
+          - metrics
+          - prometheus
+          
+eureka:
+  instance:
+    hostname: "localhost"

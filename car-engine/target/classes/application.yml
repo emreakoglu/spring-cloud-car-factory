@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: car-engine
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+logging:
+  level:
+    org.springframework: info
+server:
+  port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - env
+          - metrics
+          - prometheus
+          
+eureka:
+  instance:
+    hostname: "localhost"
