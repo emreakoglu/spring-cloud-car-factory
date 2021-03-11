@@ -38,7 +38,7 @@ public class CarEngineClient {
 				.orElseThrow(() -> new IllegalStateException("Proxy unavailable"));
 		
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-				.fromHttpUrl(instance.getUri().toString()+"/car-engine/createEngine")
+				.fromHttpUrl(instance.getUri().toString()+"/car-engine/application/createEngine")
 				.queryParam("brand", carDto.getBrand());
 		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), CarEngine.class);
 		

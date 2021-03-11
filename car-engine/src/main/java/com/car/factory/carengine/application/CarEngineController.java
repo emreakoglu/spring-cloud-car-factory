@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.car.factory.carengine.model.CarEngine;
 
 @RestController
-@RequestMapping("/createEngine")
+@RequestMapping("/application")
 public class CarEngineController {
 	
-	@GetMapping
-	public ResponseEntity<CarEngine> createEngine(@RequestBody String brand) {
+	@GetMapping("/createEngine")
+	public ResponseEntity<CarEngine> createEngine(@RequestParam String brand) {
 		
 		CarEngine carEngine = new CarEngine();
 		carEngine.setForBrand(brand);
