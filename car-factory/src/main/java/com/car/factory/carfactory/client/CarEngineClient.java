@@ -3,6 +3,9 @@ package com.car.factory.carfactory.client;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +23,25 @@ public class CarEngineClient {
 			.getLogger(CarEngineClient.class);
 	
 	private final RestTemplate restTemplate;
+	private final DiscoveryClient discoveryClient;
 
-	public CarEngineClient(@LoadBalanced RestTemplate restTemplate) {
+	public CarEngineClient(@Qualifier("restTemplate") RestTemplate restTemplate,
+			DiscoveryClient discoveryClient) {
 		this.restTemplate = restTemplate;
+		this.discoveryClient = discoveryClient;
 	}
 	
 	public ResponseEntity<CarEngine> createEngine(CarDto carDto) {
 		
+		ServiceInstance instance = discoveryClient.getInstances("proxy-gateway")
+				.stream().findAny()
+				.orElseThrow(() -> new IllegalStateException("Proxy unavailable"));
 		
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-				.fromHttpUrl("http://car-engine/application/createEngine")
+				.fromHttpUrl(instance.getUri().toString()+"/car-engine/createEngine")
 				.queryParam("brand", carDto.getBrand());
-		
 		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), CarEngine.class);
+		
 	}
 
 }

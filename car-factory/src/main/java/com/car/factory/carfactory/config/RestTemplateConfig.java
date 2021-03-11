@@ -11,8 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.car.factory.carfactory.excluded.CustomLoadBalancerConfiguration;
 
 @Configuration
-@LoadBalancerClients({@LoadBalancerClient(value = "car-hood",configuration = CustomLoadBalancerConfiguration.class),
-						@LoadBalancerClient(value = "car-engine",configuration = CustomLoadBalancerConfiguration.class)})
+@LoadBalancerClient(value = "car-hood",configuration = CustomLoadBalancerConfiguration.class)
 public class RestTemplateConfig {
 	
 	@Bean

@@ -25,7 +25,7 @@ public class CarHoodClient {
 	public ResponseEntity<CarHood> createHood(CarDto carDto) {
 		
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-				.fromHttpUrl("http://car-hood/application/createHood")
+				.fromHttpUrl("http://car-hood/car-hood/createHood")
 				.queryParam("brand", carDto.getBrand());
 		
 		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), CarHood.class);

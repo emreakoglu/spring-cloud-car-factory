@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.car.factory.carhood.model.CarHood;
 
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/car-hood")
 public class CarHoodController {
 	
 	@GetMapping("/createHood")

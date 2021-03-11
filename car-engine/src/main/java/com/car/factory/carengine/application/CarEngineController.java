@@ -2,6 +2,7 @@ package com.car.factory.carengine.application;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,12 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.car.factory.carengine.model.CarEngine;
 
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/createEngine")
 public class CarEngineController {
 	
-	
-	@GetMapping("/createEngine")
-	public ResponseEntity<CarEngine> createEngine(@RequestParam String brand) {
+	@GetMapping
+	public ResponseEntity<CarEngine> createEngine(@RequestBody String brand) {
 		
 		CarEngine carEngine = new CarEngine();
 		carEngine.setForBrand(brand);
