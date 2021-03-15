@@ -14,10 +14,15 @@ public class ProxyConfig {
 	@Bean
 	RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
+				.route("car_factory_route",
+						route -> route.path("/car-factory/**")
+								.filters(filter -> filter.stripPrefix(1)) // birinci path'i kaldırır
+								.uri("lb://car-factory"))
+				
 				.route("car_engine_route",
 						route -> route.path("/car-engine/**")
 								.and()
-								.method(HttpMethod.GET)
+								.method(HttpMethod.GET,HttpMethod.POST)
 								.filters(filter -> filter.stripPrefix(1))
 								.uri("lb://car-engine"))
 				
