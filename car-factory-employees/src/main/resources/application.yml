@@ -36,3 +36,7 @@ management:
           - env
           - metrics
           - prometheus
+          
+eureka:
+  instance:
+    hostname: "localhost"

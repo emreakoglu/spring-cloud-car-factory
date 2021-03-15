@@ -5,18 +5,19 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+        
 logging:
   level:
     org.springframework: info
+    io.github.resilience4j: debug
 server:
   port: 8081
+  
 management:
   endpoints:
     web:
       exposure:
         include:
-          - refresh
-          - env
           - metrics
           - prometheus
           
