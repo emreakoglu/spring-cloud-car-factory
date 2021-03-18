@@ -27,14 +27,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		
 		httpSecurity.csrf().disable().logout().disable().formLogin().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous().and().exceptionHandling()
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.addFilterAfter(new JwtTokenAuthenticationFilter(config), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests().antMatchers(config.getUrl()).permitAll()
-							.antMatchers("/car-factory/application/**","/car-engine/application/**","/car-hood/application/**").hasRole("ADMIN")
-							.antMatchers("/backend/user/**").hasRole("USER")
-							.antMatchers("/backend/guest/**").permitAll().anyRequest()
+							.antMatchers("/car-factory/application/**","/car-engine/application/**","/car-hood/application/**").hasRole("USER")
+							.antMatchers("/car-factory/admin/**").hasRole("USER")
+							.antMatchers("/car-factory/guest/**").permitAll().anyRequest()
 							.authenticated();
 	}
 
