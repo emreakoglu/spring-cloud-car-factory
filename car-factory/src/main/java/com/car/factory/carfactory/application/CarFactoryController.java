@@ -1,10 +1,16 @@
 package com.car.factory.carfactory.application;
 
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
@@ -24,13 +30,18 @@ public class CarFactoryController {
 	
 	private final CarFactoryService carFactoryService;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	public CarFactoryController(CarFactoryService carFactoryService) {
 		this.carFactoryService = carFactoryService;
 	}
 	
 	@PostMapping("/carCreate")
-	public ResponseEntity<Car> carCreate(@RequestBody CarDto carDto,
+	public ResponseEntity<Car> carCreate(@RequestHeader("Authorization") String token,@RequestBody CarDto carDto,
 			UriComponentsBuilder uriComponentsBuilder) {
+		
+		httpSession.setAttribute("Authorization", token);
 		
 		Car newCar = new Car(carDto.getBrand(),null,null,UUID.randomUUID());
 		
@@ -46,6 +57,13 @@ public class CarFactoryController {
 //		default:
 //			newCar = new Car();
 //			break;
+//		}
+		
+//		try {
+//			Thread.sleep(5 * 1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
 		
 		newCar.setCarEngine(carFactoryService.createCarEngine(carDto));

@@ -8,6 +8,8 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -40,8 +42,8 @@ public class CarEngineClient {
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
 				.fromHttpUrl(instance.getUri().toString()+"/car-engine/application/createEngine")
 				.queryParam("brand", carDto.getBrand());
-		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), CarEngine.class);
 		
+		return restTemplate.getForEntity(uriComponentsBuilder.toUriString(), CarEngine.class);		
 	}
 
 }

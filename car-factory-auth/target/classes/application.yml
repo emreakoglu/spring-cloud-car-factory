@@ -1,0 +1,13 @@
+
+spring:
+  application:
+    name: car-factory-auth
+
+server:
+  port: 8088
+  
+eureka:
+  instance:
+    hostname: "localhost"
+  
+shuaicj.security.jwt.secret: otherpeopledontknowit

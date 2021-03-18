@@ -11,5 +11,6 @@
   	<module>car-factory-euraka-server</module>
   	<module>car-factory</module>
   	<module>car-proxy-gateway</module>
+  	<module>car-factory-auth</module>
   </modules>
 </project>
