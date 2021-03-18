@@ -15,14 +15,17 @@ public class ProxyConfig {
 	RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route("car_factory_route",
-						route -> route.path("/application/**")
+						route -> route.path("/car-factory/**")
+								.and()
+								.method(HttpMethod.GET,HttpMethod.POST)
+								.filters(filter -> filter.stripPrefix(1))
 								.uri("lb://car-factory"))
 				
 				.route("car_engine_route",
 						route -> route.path("/car-engine/**")
 								.and()
 								.method(HttpMethod.GET,HttpMethod.POST)
-								.filters(filter -> filter.stripPrefix(1)) // birinci path'i kaldırır
+								.filters(filter -> filter.stripPrefix(1)) // birinci path'i kaldırır, yazılmazsa car-engine path ile beraber kullanılır.
 								.uri("lb://car-engine"))
 				
 				.route("car_hood_route",

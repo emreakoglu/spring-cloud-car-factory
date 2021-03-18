@@ -23,7 +23,9 @@ public class RestTemplateConfig {
 	@Bean
 	@Qualifier("restTemplate")
 	RestTemplate restTemplate() {
-		return new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getInterceptors().add(new HeaderInterceptor());
+		return restTemplate;
 	}
 
 }

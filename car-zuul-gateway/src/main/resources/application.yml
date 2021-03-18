@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: proxy-gateway
+
+
+ribbon: 
+  ReadTimeout: 60000
+
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    car-factory-auth:
+      path: /login/**
+      serviceId: car-factory-auth
+      stripPrefix: false
+    car-factory:
+      path: /car-factory/**
+      serviceId: car-factory
+    car-engine:
+      path: /car-engine/**
+      serviceId: car-engine
+    car-hood:
+      path: /car-hood/**
+      serviceId: car-hood
+      
+shuaicj.security.jwt.secret: otherpeopledontknowit
+
+server:
+  port: 8085  
+  
+eureka:
+  instance:    hostname: "localhost"
+  client:
+    healthcheck:
+      enabled: true
+      
+logging:
+  level:
+    org.springframework: debug
+    
