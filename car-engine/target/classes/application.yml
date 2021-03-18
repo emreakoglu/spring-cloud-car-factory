@@ -5,6 +5,7 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  security:    user:      name: emre      password: emre
         
 logging:
   level:
@@ -24,3 +25,8 @@ management:
 eureka:
   instance:
     hostname: "localhost"
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://emre:emre@localhost:8761/eureka/
