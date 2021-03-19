@@ -32,3 +32,5 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://emre:emre@localhost:8761/eureka/
+      
+shuaicj.security.jwt.secret: otherpeopledontknowit

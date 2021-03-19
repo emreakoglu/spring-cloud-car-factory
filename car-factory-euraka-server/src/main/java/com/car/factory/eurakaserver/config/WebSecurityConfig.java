@@ -14,7 +14,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
         .passwordEncoder(NoOpPasswordEncoder.getInstance())
         .withUser("emre").password("emre")
-        .authorities("ADMIN");
+        .authorities("ROLE_ADMIN","ROLE_USER");
     }
 
     @Override

@@ -22,8 +22,6 @@ zuul:
     car-hood:
       path: /car-hood/**
       serviceId: car-hood
-      
-shuaicj.security.jwt.secret: otherpeopledontknowit
 
 server:
   port: 8085  

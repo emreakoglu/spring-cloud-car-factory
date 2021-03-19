@@ -43,3 +43,5 @@ management:
           - env
           - metrics
           - prometheus
+          
+shuaicj.security.jwt.secret: otherpeopledontknowit

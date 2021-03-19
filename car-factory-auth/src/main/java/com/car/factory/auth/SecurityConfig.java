@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtAuthenticationConfig jwtConfig() {
+    	
         return new JwtAuthenticationConfig();
     }
 
@@ -71,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+    	//config.setExpiration(60*1);
     	httpSecurity.headers().frameOptions().disable();
     	httpSecurity  .csrf().disable()
         .logout().disable()
