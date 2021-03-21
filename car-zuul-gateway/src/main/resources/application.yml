@@ -13,6 +13,9 @@ zuul:
       path: /login/**
       serviceId: car-factory-auth
       stripPrefix: false
+    car-factory-auth-user:
+      path: /car-factory-auth/**
+      serviceId: car-factory-auth
     car-factory:
       path: /car-factory/**
       serviceId: car-factory

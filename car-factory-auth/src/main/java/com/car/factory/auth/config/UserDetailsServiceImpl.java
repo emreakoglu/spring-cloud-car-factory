@@ -1,4 +1,4 @@
-package com.car.factory.auth;
+package com.car.factory.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
  
 @Entity
 @Table(name = "users")
@@ -33,7 +35,7 @@ public class User {
 		this.username = username;
 	}
 	public String getPassword() {
-		return password;
+		return "*******";
 	}
 	public void setPassword(String password) {
 		this.password = password;

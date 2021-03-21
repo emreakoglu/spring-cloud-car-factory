@@ -1,4 +1,4 @@
-package com.car.factory.auth;
+package com.car.factory.auth.config;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -16,10 +16,12 @@ import org.springframework.security.config.web.servlet.AuthorizeRequestsDsl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import shuaicj.example.security.common.JwtAuthenticationConfig;
+import shuaicj.example.security.common.JwtTokenAuthenticationFilter;
 import shuaicj.example.security.common.JwtUsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -66,10 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	
         auth.authenticationProvider(authenticationProvider());
     }
- 
-
+    
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
     	//config.setExpiration(60*1);
@@ -84,11 +86,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().authenticationEntryPoint(
                     (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
         .and()
-            .addFilterAfter(new JwtUsernamePasswordAuthenticationFilter(config, authenticationManager()),
+            .addFilterAfter(new JwtUsernamePasswordAuthenticationFilter(config, authenticationManager()), // bu servisin token üretmesi için gerekli
                     UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(new JwtTokenAuthenticationFilter(config), UsernamePasswordAuthenticationFilter.class) // bu servisin token ile kullanılması için gerekli
         .authorizeRequests()
         .antMatchers(config.getUrl()).permitAll()
         .antMatchers("/h2-console/**").permitAll()
+        .antMatchers("/swagger**","/v2/**").permitAll()
+        .antMatchers("/application/**").hasRole("USER")
         .anyRequest().authenticated();
     	
     	
