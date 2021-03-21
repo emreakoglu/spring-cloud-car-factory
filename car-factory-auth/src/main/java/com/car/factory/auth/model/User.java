@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.annotations.ApiModel;
  
 @Entity
@@ -34,8 +36,10 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	@JsonIgnore
 	public String getPassword() {
-		return "*******";
+		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;

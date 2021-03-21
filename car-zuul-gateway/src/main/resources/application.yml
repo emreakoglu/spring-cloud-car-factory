@@ -25,6 +25,9 @@ zuul:
     car-hood:
       path: /car-hood/**
       serviceId: car-hood
+    car-factory-employees:
+      path: /car-factory-employees/**
+      serviceId: car-factory-employees
 
 server:
   port: 8085  
