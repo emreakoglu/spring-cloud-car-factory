@@ -25,7 +25,7 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	@PostMapping("/createEmployee")
-	public Employee createEngineEmployee(@RequestBody EmployeeDto employeeDto) {
+	public Employee createEmployee(@RequestBody EmployeeDto employeeDto) {
 		
 		Employee employee = new Employee();
 		employee.setActive(true);

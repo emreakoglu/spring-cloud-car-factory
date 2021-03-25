@@ -21,7 +21,7 @@ public class CarEngineController {
 	
 	
 	@GetMapping("/createEngine")
-	public ResponseEntity<CarEngine> createEngine(@RequestHeader("Authorization") String token,@RequestParam String brand) {
+	public ResponseEntity<CarEngine> createEngine(@RequestParam String brand) {
 		
 		CarEngine carEngine = new CarEngine();
 		carEngine.setForBrand(brand);
