@@ -1,0 +1,62 @@
+version: '3.7'
+services:
+    car-factory-euraka-server:
+        image: 'car-factory-euraka-server'
+        ports:
+            - "8761:8761"
+        networks:
+            microservice_network:
+                aliases:
+                    - eureka-server
+    car-zuul-gateway:
+        image: 'car-zuul-gateway'
+        ports:
+            - "8085:8085"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+    car-factory-auth:
+        image: 'car-factory-auth'
+        ports:
+            - "8088:8088"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+    car-factory:
+        image: 'car-factory'
+        ports:
+            - "8080:8080"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+    car-engine:
+        image: 'car-engine'
+        ports:
+            - "8081:8081"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+    car-hood:
+        image: 'car-hood'
+        ports:
+            - "8082:8082"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+    car-factory-employees:
+        image: 'car-factory-employees'
+        ports:
+            - "8083:8083"
+        environment:
+            - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://emre:emre@eureka-server:8761/eureka"
+        networks:
+            microservice_network:
+networks:
+  microservice_network:
+    ipam:
+      driver: default

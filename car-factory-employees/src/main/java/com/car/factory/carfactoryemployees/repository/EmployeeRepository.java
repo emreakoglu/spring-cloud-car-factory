@@ -3,6 +3,7 @@ package com.car.factory.carfactoryemployees.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.car.factory.carfactoryemployees.model.Department;

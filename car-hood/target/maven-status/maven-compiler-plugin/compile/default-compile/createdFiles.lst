@@ -1,6 +1,0 @@
-com\car\factory\carhood\config\WebSecurityConfig.class
-shuaicj\example\security\common\JwtAuthenticationConfig.class
-com\car\factory\carhood\CarHoodApplication.class
-com\car\factory\carhood\model\CarHood.class
-com\car\factory\carhood\application\CarHoodController.class
-shuaicj\example\security\common\JwtTokenAuthenticationFilter.class
