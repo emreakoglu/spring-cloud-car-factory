@@ -12,19 +12,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import shuaicj.example.security.common.JwtAuthenticationConfig;
-import shuaicj.example.security.common.JwtTokenAuthenticationFilter;
+import com.car.factory.security.JwtFilter;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private JwtAuthenticationConfig config;
-
-	@Bean
-	public JwtAuthenticationConfig jwtConfig() {
-		return new JwtAuthenticationConfig();
-	}
+	private JwtFilter jwtFilter;
 	
 	@Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,17 +30,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	
     	http.headers().frameOptions().disable();
-    	http.csrf().disable().logout().disable().formLogin().disable().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous().and().exceptionHandling()
-		.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
-		.addFilterAfter(new JwtTokenAuthenticationFilter(config), UsernamePasswordAuthenticationFilter.class)
-		.authorizeRequests()
-			.antMatchers(config.getUrl()).permitAll()
-            .antMatchers("/h2-console/**").permitAll()
-            .antMatchers("/application/**").hasRole("USER")
-            .anyRequest().authenticated()
-            .and()
-            .httpBasic();
+        http.csrf().disable()
+		        .logout().disable()
+		        .formLogin().disable()
+                .authorizeRequests()
+                	.antMatchers("/h2-console/**").permitAll()
+                    .antMatchers("/swagger**","/v2/**").permitAll()
+                    .antMatchers("/application/**").hasRole("USER")
+                .anyRequest().authenticated()
+                .and().httpBasic()
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    
     }
 }

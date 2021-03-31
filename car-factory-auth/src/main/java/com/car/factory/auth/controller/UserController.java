@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.car.factory.auth.model.User;
 import com.car.factory.auth.model.UserDto;
 import com.car.factory.auth.service.UserService;
+import com.car.factory.util.PasswordEncoder;
 
 import io.swagger.annotations.Api;
-import shuaicj.example.security.common.PasswordEncoder;
 
 @RestController
 @RequestMapping("/application")

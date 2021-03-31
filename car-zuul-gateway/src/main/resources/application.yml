@@ -10,7 +10,7 @@ zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
     car-factory-auth:
-      path: /login/**
+      path: /getToken/**
       serviceId: car-factory-auth
       stripPrefix: false
     car-factory-auth-user:

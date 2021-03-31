@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,10 @@ import com.car.factory.carengine.model.CarEngine;
 @RestController
 @RequestMapping("/application")
 public class CarEngineController {
+	
+	@Autowired
+	private ServletWebServerApplicationContext webServerAppCtxt;
+
 	
 	
 	@GetMapping("/createEngine")
@@ -40,6 +45,8 @@ public class CarEngineController {
 			carEngine.setTork(110);
 			break;
 		}
+		
+		System.out.println(webServerAppCtxt.getWebServer().getPort());
 		
 		return ResponseEntity.ok(carEngine);
 		
