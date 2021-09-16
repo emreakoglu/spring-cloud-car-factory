@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +21,25 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.car.factory.carfactory.model.BMW;
 import com.car.factory.carfactory.model.Car;
 import com.car.factory.carfactory.model.CarDto;
+import com.car.factory.carfactory.model.Department;
+import com.car.factory.carfactory.model.Employee;
 import com.car.factory.carfactory.model.Mercedes;
 import com.car.factory.carfactory.model.Reno;
 import com.car.factory.carfactory.service.CarFactoryService;
 import com.car.factory.carfactory.service.ICarService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/application")
+@Slf4j
+@Api(value = "Araba Fabrikası API Dokumantasyonu")
 public class CarFactoryController {
+	
+	Logger logger = LoggerFactory.getLogger(CarFactoryController.class);
 	
 	private final CarFactoryService carFactoryService;
 	
@@ -38,37 +51,25 @@ public class CarFactoryController {
 	}
 	
 	@PostMapping("/carCreate")
-	public ResponseEntity<Car> carCreate(@RequestHeader("Authorization") String token,@RequestBody CarDto carDto,
+	@ApiOperation(value = "Araba Üretme Operasyonu")
+	public ResponseEntity<Car> carCreate(@RequestHeader("Authorization") String token,@RequestBody @ApiParam("Araba Üretme Servisi Parametresi") CarDto carDto,
 			UriComponentsBuilder uriComponentsBuilder) {
 		
 		httpSession.setAttribute("Authorization", token);
 		
+		logger.info("Test");
+		
 		Car newCar = new Car(carDto.getBrand(),null,null,UUID.randomUUID());
 		
-//		switch (carDto.getBrand()) {
-//		case "BMW":
-//			newCar = new BMW(carDto.getBrand(),null,null,UUID.randomUUID());
-//			break;
-//		case "Mercedes":
-//			newCar = new Mercedes(carDto.getBrand(), null, null, UUID.randomUUID());
-//			break;
-//		case "Reno":
-//			newCar = new Reno(carDto.getBrand(), null, null, UUID.randomUUID());
-//		default:
-//			newCar = new Car();
-//			break;
-//		}
+		Employee engineEmployee = carFactoryService.getEmployeeByDepartment(Department.ENGINE);
+		if (engineEmployee != null) {
+			newCar.setCarEngine(carFactoryService.createCarEngine(carDto));
+		}
 		
-//		try {
-//			Thread.sleep(5 * 1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		newCar.setCarEngine(carFactoryService.createCarEngine(carDto));
-		
-		newCar.setCarHood(carFactoryService.createCarHood(carDto));
+		Employee hoodEmployee = carFactoryService.getEmployeeByDepartment(Department.HOOD);
+		if(hoodEmployee != null) {
+			newCar.setCarHood(carFactoryService.createCarHood(carDto));
+		}
 		
 		carFactoryService.saveCar(newCar);
 		

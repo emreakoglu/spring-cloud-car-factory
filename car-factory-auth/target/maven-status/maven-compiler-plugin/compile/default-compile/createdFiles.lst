@@ -1,0 +1,16 @@
+com\car\factory\auth\config\UserDetailsServiceImpl.class
+com\car\factory\auth\respository\UserRepository.class
+shuaicj\example\security\common\JwtAuthenticationConfig.class
+com\car\factory\auth\model\MyUserDetails.class
+com\car\factory\auth\CarAuthApplication.class
+shuaicj\example\security\common\PasswordEncoder.class
+com\car\factory\auth\config\SecurityConfig.class
+com\car\factory\auth\config\SwaggerConfig.class
+shuaicj\example\security\common\JwtTokenAuthenticationFilter.class
+com\car\factory\auth\model\User.class
+com\car\factory\auth\config\SwaggerConfig$1.class
+com\car\factory\auth\model\UserDto.class
+com\car\factory\auth\controller\UserController.class
+shuaicj\example\security\common\JwtUsernamePasswordAuthenticationFilter$User.class
+shuaicj\example\security\common\JwtUsernamePasswordAuthenticationFilter.class
+com\car\factory\auth\service\UserService.class

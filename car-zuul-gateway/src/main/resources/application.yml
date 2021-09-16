@@ -10,12 +10,13 @@ zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
     car-factory-auth:
-      path: /login/**
+      path: /getToken/**
       serviceId: car-factory-auth
-      stripPrefix: false
+      stripPrefix: false #önündeki 'getToken' path'ini kaldırmayacak, defaultta bu değer true olduğu için diğerlerinde prefix kaldıracak
     car-factory-auth-user:
       path: /car-factory-auth/**
       serviceId: car-factory-auth
+      strip-prefix: false #önündeki '/car-factory-auth' path'ini kaldırmayacak, defaultta bu değer true olduğu için diğerlerinde prefix kaldıracak
     car-factory:
       path: /car-factory/**
       serviceId: car-factory
@@ -33,12 +34,12 @@ server:
   port: 8085  
   
 eureka:
-  instance:    hostname: "localhost"
+#  instance:#    hostname: "localhost"
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://emre:emre@localhost:8761/eureka/
+      defaultZone: http://emre:emre@localhost:8761/eureka
     healthcheck:
       enabled: true
       
