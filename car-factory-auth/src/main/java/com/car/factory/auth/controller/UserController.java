@@ -17,9 +17,12 @@ import com.car.factory.auth.service.UserService;
 import com.car.factory.util.PasswordEncoder;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.SwaggerDefinition;
 
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/car-factory-auth/application")
 @Api(value = "User Api documentation")
 public class UserController {
 	
@@ -27,7 +30,8 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping("/createUser")
-	public User createUser(@RequestBody UserDto userDto) {
+	@ApiOperation(value = "Kullanıcı Oluşturma Operasyonu")
+	public User createUser(@RequestBody @ApiParam("Kullanıcı Oluşturma Servisi Dto") UserDto userDto) {
 		
 		User user = new User();
 		
@@ -41,18 +45,21 @@ public class UserController {
 	}
 	
 	@GetMapping("/getUserByUserName")
+	@ApiOperation(value = "Username'den User Getirme Operasyonu")
 	public User getUserByUserName(@RequestParam String username) {
 		return userService.getUserByUserName(username);
 		
 	}
 	
 	@GetMapping("/getUserById")
+	@ApiOperation(value = "UserId'den User Getirme Operasyonu")
 	public User getUserById(@RequestParam Long id) {
 		
 		return userService.getUserById(id);
 	}
 	
 	@DeleteMapping("/deleteUserById")
+	@ApiOperation(value = "UserId'den User Silme Operasyonu")
 	public void deleteUserById(@RequestParam Long id) {
 		userService.deleteUserById(id);
 	}

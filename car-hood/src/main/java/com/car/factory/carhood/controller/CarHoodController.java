@@ -1,4 +1,4 @@
-package com.car.factory.carhood.application;
+package com.car.factory.carhood.controller;
 
 import java.util.Map;
 
@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.car.factory.carhood.model.CarHood;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/application")
+@Api(value = "Car Hood API Dokumantasyonu")
 public class CarHoodController {
 	
 	@GetMapping("/createHood")
-	public ResponseEntity<CarHood> createHood(@RequestHeader("Authorization") String token,@RequestParam String brand){
+	public ResponseEntity<CarHood> createHood(@RequestHeader("Authorization") String token,@RequestParam @ApiParam("Car Hood Web Service Parameter") String brand){
 		
 		CarHood carHood = new CarHood();
 		carHood.setColor("Red"); // default

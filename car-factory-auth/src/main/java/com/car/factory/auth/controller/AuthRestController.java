@@ -15,7 +15,12 @@ import com.car.factory.security.AuthRequest;
 import com.car.factory.security.CustomUserDetailsService;
 import com.car.factory.security.JwtUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
+@Api(value = "Auth Token Api Document")
 public class AuthRestController {
 	
 	@Autowired
@@ -27,9 +32,11 @@ public class AuthRestController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @PostMapping("/getToken")
-    public JwtToken creteToken(@RequestBody AuthRequest authRequest) throws Exception {
+    @PostMapping(value="/getToken",produces = "application/json")
+    @ApiOperation(value = "Get Token Operation")
+    public JwtToken creteToken(@RequestBody @ApiParam("Get Token Operation Parameter") AuthRequest authRequest) throws Exception {
         try {
+        	// bu satır login ediyor, catch düştüğü durumlarda zaten hata almış oluyor.
         	daoAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException ex) {
             throw new Exception("Incorret username or password", ex);

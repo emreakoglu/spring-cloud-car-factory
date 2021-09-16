@@ -28,11 +28,15 @@ import com.car.factory.carfactory.model.Reno;
 import com.car.factory.carfactory.service.CarFactoryService;
 import com.car.factory.carfactory.service.ICarService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/application")
 @Slf4j
+@Api(value = "Araba Fabrikası API Dokumantasyonu")
 public class CarFactoryController {
 	
 	Logger logger = LoggerFactory.getLogger(CarFactoryController.class);
@@ -47,7 +51,8 @@ public class CarFactoryController {
 	}
 	
 	@PostMapping("/carCreate")
-	public ResponseEntity<Car> carCreate(@RequestHeader("Authorization") String token,@RequestBody CarDto carDto,
+	@ApiOperation(value = "Araba Üretme Operasyonu")
+	public ResponseEntity<Car> carCreate(@RequestHeader("Authorization") String token,@RequestBody @ApiParam("Araba Üretme Servisi Parametresi") CarDto carDto,
 			UriComponentsBuilder uriComponentsBuilder) {
 		
 		httpSession.setAttribute("Authorization", token);

@@ -12,10 +12,11 @@ zuul:
     car-factory-auth:
       path: /getToken/**
       serviceId: car-factory-auth
-      stripPrefix: false
+      stripPrefix: false #önündeki 'getToken' path'ini kaldırmayacak, defaultta bu değer true olduğu için diğerlerinde prefix kaldıracak
     car-factory-auth-user:
       path: /car-factory-auth/**
       serviceId: car-factory-auth
+      strip-prefix: false #önündeki '/car-factory-auth' path'ini kaldırmayacak, defaultta bu değer true olduğu için diğerlerinde prefix kaldıracak
     car-factory:
       path: /car-factory/**
       serviceId: car-factory

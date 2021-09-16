@@ -1,4 +1,4 @@
-package com.car.factory.carengine.application;
+package com.car.factory.carengine.controller;
 
 import java.util.Map;
 
@@ -16,8 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.car.factory.carengine.model.CarEngine;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/application")
+@Api(value = "Araba Motor API Dokumantasyonu")
 public class CarEngineController {
 	
 	@Autowired
@@ -26,7 +31,8 @@ public class CarEngineController {
 	
 	
 	@GetMapping("/createEngine")
-	public ResponseEntity<CarEngine> createEngine(@RequestParam String brand) {
+	@ApiOperation(value = "Araba Motoru Üretme Operasyonu")
+	public ResponseEntity<CarEngine> createEngine(@RequestParam @ApiParam("Araba Motoru Üretme Servisi Parametresi") String brand) {
 		
 		CarEngine carEngine = new CarEngine();
 		carEngine.setForBrand(brand);

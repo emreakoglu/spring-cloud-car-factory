@@ -17,15 +17,23 @@ import com.car.factory.carfactoryemployees.model.Employee;
 import com.car.factory.carfactoryemployees.model.EmployeeDto;
 import com.car.factory.carfactoryemployees.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.Authorization;
+
 @RestController
 @RequestMapping("/application")
+@Api(value = "Araba Fabrikası API Dokumantasyonu")
 public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
 	
-	@PostMapping("/createEmployee")
-	public Employee createEmployee(@RequestBody EmployeeDto employeeDto) {
+	@PostMapping(value="/createEmployee",produces = "application/json")
+	@ApiOperation(value = "Create Employee Operasyonu")
+	public Employee createEmployee(@RequestBody @ApiParam("Create Employee Web Service Parameter") EmployeeDto employeeDto) {
 		
 		Employee employee = new Employee();
 		employee.setActive(true);
@@ -38,20 +46,23 @@ public class EmployeeController {
 		
 	}
 	
-	@GetMapping("/getEmployeeByDepartment")
-	public Employee getEmployeeByDepartment(@RequestParam Department department) {
+	@GetMapping(value = "getEmployeeByDepartment",produces = "application/json")
+	@ApiOperation(value = "Get Employee by Department Operasyonu")
+	public Employee getEmployeeByDepartment(@RequestParam @ApiParam("Get Employee by Department Parameter") Department department) {
 		List<Employee> departmentEmployee = employeeService.getEmployeeByDeparment(department);
 		Random rand = new Random();
 		return departmentEmployee.get(rand.nextInt(departmentEmployee.size()));
 	}
 	
-	@GetMapping("/getEmployeeById")
-	public Employee getEmployeeById(@RequestParam Long id) {
+	@GetMapping(value="/getEmployeeById",produces = "application/json")
+	@ApiOperation(value = "Get Employee by Id Operasyonu")
+	public Employee getEmployeeById(@RequestParam @ApiParam("Get Employee by Id Parameter") Long id) {
 		return employeeService.getEmployeeById(id);
 	}
 	
-	@DeleteMapping("/deleteEmployeeById")
-	public void deleteEmployeeById(@RequestParam Long id) {
+	@DeleteMapping(value="/deleteEmployeeById",produces = "application/json")
+	@ApiOperation(value = "Delete Employee by Id Operasyonu")
+	public void deleteEmployeeById(@RequestParam @ApiParam("Delete Employee by Id Parameter") Long id) {
 		employeeService.deleteEmployeeById(id);
 	}
 

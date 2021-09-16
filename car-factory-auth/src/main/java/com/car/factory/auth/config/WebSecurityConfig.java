@@ -1,4 +1,4 @@
-package com.car.factory.security;
+package com.car.factory.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.car.factory.security.CustomUserDetailsService;
+import com.car.factory.security.JwtFilter;
+
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JwtFilter jwtFilter;
@@ -49,6 +52,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 	.antMatchers("/getToken").permitAll()
                 	.antMatchers("/h2-console/**").permitAll()
+                	.antMatchers("/webjars/**").permitAll()
+                	.antMatchers("/swagger-resources/**").permitAll()
                     .antMatchers("/swagger**","/v2/**").permitAll()
                     .antMatchers("/application/**").hasRole("USER")
                 .anyRequest().authenticated()
