@@ -50,13 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .logout().disable()
 		        .formLogin().disable()
                 .authorizeRequests()
-                	.antMatchers("/getToken").permitAll()
-                	.antMatchers("/h2-console/**").permitAll()
-                	.antMatchers("/webjars/**").permitAll()
-                	.antMatchers("/swagger-resources/**").permitAll()
-                    .antMatchers("/swagger**","/v2/**").permitAll()
-                    .antMatchers("/application/**").hasRole("USER")
-                .anyRequest().authenticated()
+                	.anyRequest().permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

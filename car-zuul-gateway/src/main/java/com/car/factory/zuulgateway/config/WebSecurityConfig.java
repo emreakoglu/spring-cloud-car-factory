@@ -1,4 +1,4 @@
-package com.car.factory.carfactoryemployees.config;
+package com.car.factory.zuulgateway.config;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.car.factory.security.JwtFilter;
+import com.car.factory.zuulgateway.security.JwtFilter;
 
 
 @Configuration
@@ -21,6 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtFilter jwtFilter;
 	
+	
 	@Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -28,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .withUser("emre").password("emre")
         .authorities("ROLE_ADMIN","ROLE_USER");
     }
-	
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.headers().frameOptions().disable();
@@ -36,17 +37,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .logout().disable()
 		        .formLogin().disable()
                 .authorizeRequests()
+                	.antMatchers("/getToken").permitAll()
                 	.antMatchers("/h2-console/**").permitAll()
                     .antMatchers("/swagger**","/v2/**").permitAll()
                     .antMatchers("/webjars/**").permitAll()
                     .antMatchers("/swagger-resources/**").permitAll()
-                    .antMatchers("/application/**").hasRole("USER")
+                    .antMatchers("*/application/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     
-    	
     }
 }

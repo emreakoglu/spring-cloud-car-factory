@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiParam;
 public class CarHoodController {
 	
 	@GetMapping("/createHood")
-	public ResponseEntity<CarHood> createHood(@RequestHeader("Authorization") String token,@RequestParam @ApiParam("Car Hood Web Service Parameter") String brand){
+	public ResponseEntity<CarHood> createHood(@RequestParam @ApiParam("Car Hood Web Service Parameter") String brand){
 		
 		CarHood carHood = new CarHood();
 		carHood.setColor("Red"); // default

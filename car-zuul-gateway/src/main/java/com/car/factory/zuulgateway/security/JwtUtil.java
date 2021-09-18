@@ -1,4 +1,4 @@
-package com.car.factory.security;
+package com.car.factory.zuulgateway.security;
 
 import java.util.Date;
 import java.util.HashMap;
